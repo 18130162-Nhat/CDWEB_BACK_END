@@ -21,7 +21,7 @@ public class Customer {
     @Column(name = "role")
     private String role ;
     @Column(name = "status")
-    private boolean status ;
+    private String status ;
     @Column(name = "first_name")
     private String firstName ;
     @Column(name = "last_name")
@@ -38,7 +38,7 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Order> orderList ;
 
-    public Customer( String pass, String phone, String email, String role, boolean status, String firstName, String lastName, String gender, Timestamp time, String code, String linkAvatar, List<Order> orderList) {
+    public Customer( String pass, String phone, String email, String role, String status, String firstName, String lastName, String gender, Timestamp time, String code, String linkAvatar, List<Order> orderList) {
         this.pass = pass;
         this.phone = phone;
         this.email = email;
@@ -96,11 +96,11 @@ public class Customer {
         this.role = role;
     }
 
-    public boolean isStatus() {
+    public String isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 
