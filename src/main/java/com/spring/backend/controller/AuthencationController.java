@@ -1,7 +1,7 @@
 package com.spring.backend.controller;
 
 import com.spring.backend.model.ResponseObject;
-import com.spring.backend.service.UserService;
+import com.spring.backend.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class AuthencationController {
     @Autowired
-    UserService userService ;
+    CustomerService userService ;
     @RequestMapping(value = "/login" , method = RequestMethod.POST)
     public ResponseEntity<ResponseObject> login(@RequestParam("email") String email , @RequestParam("pass") String pass){
         if(userService.login(email,pass)) return ResponseEntity.status(HttpStatus.OK)
@@ -24,7 +24,7 @@ public class AuthencationController {
         System.out.println(email);
         if(userService.isExistEmail(email)) return  ResponseEntity.status(HttpStatus.OK)
                 .body(new ResponseObject("oke" , "")) ;
-        return  ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED)
+        return  ResponseEntity.status(HttpStatus.OK)
                 .body( new ResponseObject("failure" , "")) ;
     }
 

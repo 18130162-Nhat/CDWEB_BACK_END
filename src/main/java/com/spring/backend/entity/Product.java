@@ -1,5 +1,7 @@
 package com.spring.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -31,12 +33,13 @@ public class Product {
     @Column(name = "description")
     private String description ;
     @JoinColumn(name = "branch_id")
-    @ManyToOne
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.ALL)
     private Branch branch ;
-
-    @OneToMany(mappedBy = "product")
+    @JsonIgnore
+    @OneToMany(mappedBy = "product",fetch = FetchType.EAGER)
     private List<Image> listImage ;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "product")
     private List<DetailOrder> listDetailProduct ;
     public Product() {

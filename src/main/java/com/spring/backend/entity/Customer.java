@@ -29,7 +29,7 @@ public class Customer {
     @Column(name = "gender")
     private String gender ;
     @Column(name = "timestamp")
-    private Timestamp time ;
+    private long time ;
     @Column(name = "code")
     private String code ;
     @Column(name = "avatar")
@@ -38,7 +38,7 @@ public class Customer {
     @OneToMany(mappedBy = "customer")
     private List<Order> orderList ;
 
-    public Customer( String pass, String phone, String email, String role, String status, String firstName, String lastName, String gender, Timestamp time, String code, String linkAvatar, List<Order> orderList) {
+    public Customer( String pass, String phone, String email, String role, String status, String firstName, String lastName, String gender, long time, String code, String linkAvatar, List<Order> orderList) {
         this.pass = pass;
         this.phone = phone;
         this.email = email;
@@ -128,11 +128,11 @@ public class Customer {
         this.gender = gender;
     }
 
-    public Timestamp getTime() {
+    public long getTime() {
         return time;
     }
 
-    public void setTime(Timestamp time) {
+    public void setTime(long time) {
         this.time = time;
     }
 

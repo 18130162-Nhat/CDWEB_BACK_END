@@ -1,5 +1,7 @@
 package com.spring.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -12,7 +14,7 @@ public class Branch {
     private int idBranch ;
     @Column(name = "branch_name")
     private  String nameBranch;
-
+    @JsonIgnore
     @OneToMany(mappedBy = "branch")
     private List<Product> productList ;
 
