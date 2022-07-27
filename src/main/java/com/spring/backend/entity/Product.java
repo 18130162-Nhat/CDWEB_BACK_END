@@ -28,10 +28,10 @@ public class Product {
     private String size ;
     @Column(name = "type_shoe")
     private String typeShoe ;
-    @Column(name = "inforProduct")
-    private String inforProduct ;
     @Column(name = "description")
     private String description ;
+    @Column(name = "quantity")
+    private int quantity ;
     @JoinColumn(name = "branch_id")
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.ALL)
@@ -46,7 +46,7 @@ public class Product {
 
     }
 
-    public Product( String name, int price, String status, int priceSale, String thumbnail, String color, String size, String typeShoe, String inforProduct, String description, Branch branch, List<Image> listImage, List<DetailOrder> listDetailProduct) {
+    public Product( String name, int price, String status, int priceSale, String thumbnail, String color, String size, String typeShoe, String description, Branch branch, List<Image> listImage, List<DetailOrder> listDetailProduct, int quantity) {
         this.name = name;
         this.price = price;
         this.status = status;
@@ -55,11 +55,11 @@ public class Product {
         this.color = color;
         this.size = size;
         this.typeShoe = typeShoe;
-        this.inforProduct = inforProduct;
         this.description = description;
         this.branch = branch;
         this.listImage = listImage;
         this.listDetailProduct = listDetailProduct;
+        this.quantity = quantity ;
     }
 
     public int getIdProduct() {
@@ -133,15 +133,6 @@ public class Product {
     public void setTypeShoe(String typeShoe) {
         this.typeShoe = typeShoe;
     }
-
-    public String getInforProduct() {
-        return inforProduct;
-    }
-
-    public void setInforProduct(String inforProduct) {
-        this.inforProduct = inforProduct;
-    }
-
     public String getDescription() {
         return description;
     }
@@ -172,5 +163,11 @@ public class Product {
 
     public void setListDetailProduct(List<DetailOrder> listDetailProduct) {
         this.listDetailProduct = listDetailProduct;
+    }
+    public void setQuantity(int quantity){
+        this.quantity = quantity ;
+    }
+    public int getQuantity(){
+        return this.quantity ;
     }
 }

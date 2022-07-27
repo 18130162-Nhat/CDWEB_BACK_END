@@ -1,5 +1,6 @@
 package com.spring.backend.service;
 import com.spring.backend.entity.Product;
+import com.spring.backend.model.ResponseShopProduct;
 import com.spring.backend.model.ShopProduct;
 import com.spring.backend.repositories.RepositoriesProduct;
 import com.spring.backend.utilities.ProductSpecification;
@@ -32,12 +33,26 @@ public class ProductService {
         }
         public Page<Product> findProductByFilter(ShopProduct shopProduct){
             Specification productSpecification = new ProductSpecification(shopProduct.getList().get(4)) ;
-            Pageable pageable =  PageRequest.of(0,5,Sort.by(Sort.Direction.ASC,"price"));
+            Pageable pageable =  PageRequest.of(shopProduct.getPage()-1, shopProduct.getItemProduct(),Sort.by(shopProduct.getSort().equals("DES")?Sort.Direction.DESC:Sort.Direction.ASC,"price"));
             for(int i=0 ; i<shopProduct.getList().size()-1;i++){
                if(!shopProduct.getList().get(i).getValue().isBlank()) {
                    productSpecification =  Specification.where(productSpecification).and(new ProductSpecification(shopProduct.getList().get(i)));
                }
             }
     return  repositoriesProduct.findAll(productSpecification,  pageable) ;
+        }
+        public int productFiltered (ShopProduct shopProduct){
+            Specification productSpecification = new ProductSpecification(shopProduct.getList().get(4)) ;
+            for(int i=0 ; i<shopProduct.getList().size()-1;i++){
+                if(!shopProduct.getList().get(i).getValue().isBlank()) {
+                    productSpecification =  Specification.where(productSpecification).and(new ProductSpecification(shopProduct.getList().get(i)));
+                }
+            }
+        return repositoriesProduct.findAll(productSpecification).size() ;
+        }
+        public ResponseShopProduct findProduct(ShopProduct shopProduct){
+            ResponseShopProduct res = new ResponseShopProduct(shopProduct.getItemProduct(),productFiltered(shopProduct)
+                    ,shopProduct.getPage(),  findProductByFilter(shopProduct).getContent());
+            return  res ;
         }
 }

@@ -29,6 +29,6 @@ public class ProductController {
     @RequestMapping(value = "/findProductByfilter", method = RequestMethod.POST)
     public ResponseEntity<ResponseObject> findProductByFilter( @RequestBody ShopProduct shopProduct){
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseObject("oke" , productService.findProductByFilter(shopProduct).getContent())) ;
+                .body(new ResponseObject("oke" , productService.findProduct(shopProduct))) ;
     }
 }
