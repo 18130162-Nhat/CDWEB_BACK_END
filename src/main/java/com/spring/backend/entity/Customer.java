@@ -1,5 +1,7 @@
 package com.spring.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.security.Timestamp;
 import java.util.List;
@@ -34,8 +36,8 @@ public class Customer {
     private String code ;
     @Column(name = "avatar")
     private  String linkAvatar ;
-
-    @OneToMany(mappedBy = "customer")
+    @JsonIgnore
+    @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     private List<Order> orderList ;
 
     public Customer( String pass, String phone, String email, String role, String status, String firstName, String lastName, String gender, long time, String code, String linkAvatar, List<Order> orderList) {
@@ -52,6 +54,7 @@ public class Customer {
         this.linkAvatar = linkAvatar;
         this.orderList = orderList;
     }
+
 
     public Customer() {
     }
