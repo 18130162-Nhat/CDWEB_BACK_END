@@ -71,6 +71,12 @@ public class CustomerService {
         customer.save(this.cus) ;
     }
 
+    public void updatePassProfile(int idCus, String newpass){
+        Customer cus = customer.findById(idCus);
+        cus.setPass(newpass);
+        customer.save(cus) ;
+    }
+
     public void updateCusProfile(int idCus, String email, String firstName, String lastName, String phone){
         Customer cus = customer.findById(idCus);
             cus.setEmail(email);

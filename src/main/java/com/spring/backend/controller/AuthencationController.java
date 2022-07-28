@@ -41,16 +41,16 @@ public class AuthencationController {
                 .body(new ResponseObject("oke" , "")) ;
     }
 
-    @RequestMapping(value = "/customer/changePass" , method = RequestMethod.POST)
-    public ResponseEntity<ResponseObject> updatePass(@RequestParam("pass") String pass, @RequestParam("newpass") String newpass,
-                                                     @RequestParam("repeat") String repeat){
-        System.out.println(pass);
-        System.out.println(newpass);
-        System.out.println(repeat);
-
-        return  ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseObject("oke" , "")) ;
-    }
+//    @RequestMapping(value = "/customer/changePass" , method = RequestMethod.POST)
+//    public ResponseEntity<ResponseObject> updatePass(@RequestParam("pass") String pass, @RequestParam("newpass") String newpass,
+//                                                     @RequestParam("repeat") String repeat){
+//        System.out.println(pass);
+//        System.out.println(newpass);
+//        System.out.println(repeat);
+//
+//        return  ResponseEntity.status(HttpStatus.OK)
+//                .body(new ResponseObject("oke" , "")) ;
+//    }
 
 
 }
