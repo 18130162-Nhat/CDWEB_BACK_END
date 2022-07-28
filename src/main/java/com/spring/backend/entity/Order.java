@@ -1,7 +1,9 @@
 package com.spring.backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
-import java.security.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -17,21 +19,26 @@ public class Order {
     @JoinColumn(name ="customer_id")
     private Customer customer ;
     @Column(name = "create_order")
-    private Timestamp timestamp ;
+    private Date timestamp ;
     @Column(name = "status")
     private String status ;
     @Column(name = "address")
     private String address ;
     @Column(name = "note_order")
     private String note ;
-    @OneToMany(mappedBy = "order")
+    @Column(name="company")
+    private String company ;
+    @Column(name = "phone")
+    private String phone ;
+    @JsonIgnore
+    @OneToMany(mappedBy = "order",fetch = FetchType.EAGER)
     private List<DetailOrder> listDetailOrder ;
 
     public Order() {
 
     }
 
-    public Order( int priceOrder, Customer customer, Timestamp timestamp, String status, String address, String note, List<DetailOrder> listDetailOrder) {
+    public Order( int priceOrder, Customer customer, Date timestamp, String status, String address, String note,String company,String phone , List<DetailOrder> listDetailOrder) {
 
         this.priceOrder = priceOrder;
         this.customer = customer;
@@ -40,6 +47,8 @@ public class Order {
         this.address = address;
         this.note = note;
         this.listDetailOrder = listDetailOrder;
+        this.company = company ;
+        this.phone = phone ;
     }
 
     public int getIdOrder() {
@@ -66,11 +75,11 @@ public class Order {
         this.customer = customer;
     }
 
-    public Timestamp getTimestamp() {
+    public Date getTimestamp() {
         return timestamp;
     }
 
-    public void setTimestamp(Timestamp timestamp) {
+    public void setTimestamp(Date timestamp) {
         this.timestamp = timestamp;
     }
 
@@ -96,6 +105,18 @@ public class Order {
 
     public void setNote(String note) {
         this.note = note;
+    }
+    public void setCompany(String company){
+        this.company = company ;
+    }
+    public String getCompany(){
+        return company ;
+    }
+    public void setPhone(String phone){
+        this.phone = phone ;
+    }
+    public String getPhone(){
+        return phone ;
     }
 
     public List<DetailOrder> getListDetailOrder() {

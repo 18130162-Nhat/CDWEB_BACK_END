@@ -116,4 +116,9 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ResponseObject("wrong", ""));
     }
+    @RequestMapping(value = "/findOrder" , method = RequestMethod.GET)
+    public ResponseEntity<ResponseObject> findOrder(@RequestParam("id") int id){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(new ResponseObject("oke" , customerService.findAllOrder(id))) ;
+    }
 }

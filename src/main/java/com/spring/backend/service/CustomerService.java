@@ -1,6 +1,7 @@
 package com.spring.backend.service;
 
 import com.spring.backend.entity.Customer;
+import com.spring.backend.entity.Order;
 import com.spring.backend.entity.Product;
 import com.spring.backend.model.CustomerProfile;
 import com.spring.backend.model.ShopProduct;
@@ -25,7 +26,9 @@ public class CustomerService {
 
 
     public boolean login(String email , String pass ){
-        if(customer.findCustomerByEmailAndPassAndStatus(email,pass,"ACTIVE")==null) return  false ;
+        Customer u = customer.findCustomerByEmailAndPassAndStatus(email,pass,"ACTIVE") ;
+        if(u==null) return  false ;
+        this.cus = u ;
         return  true ;
     }
     public  boolean isExistEmail(String email){
@@ -108,5 +111,14 @@ public class CustomerService {
                 customer1.getEmail(),customer1.getFirstName(),
                 customer1.getLastName(), customer1.getPhone());
         return  profile;
+    }
+    public Customer getCus(){
+        return this.cus ;
+    }
+
+    public List<Order> findAllOrder(int idUser){
+        Customer cus = customer.findById(idUser) ;
+        return  cus.getOrderList() ;
+
     }
 }

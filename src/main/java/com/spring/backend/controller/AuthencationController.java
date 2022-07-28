@@ -1,5 +1,6 @@
 package com.spring.backend.controller;
 
+import com.spring.backend.model.LoginResponse;
 import com.spring.backend.model.ResponseObject;
 import com.spring.backend.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,8 +14,12 @@ public class AuthencationController {
     CustomerService userService ;
     @RequestMapping(value = "/login" , method = RequestMethod.POST)
     public ResponseEntity<ResponseObject> login(@RequestParam("email") String email , @RequestParam("pass") String pass){
-        if(userService.login(email,pass)) return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseObject("oke" , "")) ;
+        if(userService.login(email,pass)){
+            LoginResponse login = new LoginResponse(userService.getCus().getIdCustomer() ,
+                    userService.getCus().getFirstName()+" " +userService.getCus().getLastName());
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new ResponseObject("oke" , login)) ;
+        }
         return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED).body(
                 new ResponseObject("failure" ,"" )
         ) ;
