@@ -1,9 +1,6 @@
 package com.spring.backend.service;
 
-import com.spring.backend.entity.DetailOrder;
-import com.spring.backend.entity.DetailOrderId;
-import com.spring.backend.entity.Order;
-import com.spring.backend.entity.Product;
+import com.spring.backend.entity.*;
 import com.spring.backend.model.OrderCustomer;
 import com.spring.backend.repositories.RepositoriesDetailOrder;
 import com.spring.backend.repositories.RepositoriesOrder;
@@ -12,6 +9,8 @@ import com.spring.backend.utilities.UtilityOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class OrderService {
@@ -24,6 +23,8 @@ public class OrderService {
     RepositoriesDetailOrder repositoriesDetailOrder ;
     @Autowired
     UtilityDetailOrder detailOrder ;
+    @Autowired
+    CustomerService service ;
 
     @Transactional
     // thuc hien 2 thao tac luu vao db do la : luu order va luu detail order
@@ -37,6 +38,10 @@ public class OrderService {
        }
 
 
+    }
+    public List<Order> findOrderByCustomer(int id){
+        Customer cus = service.findCustomer(id);
+       return order.findAllByCustomer(cus);
     }
 
 

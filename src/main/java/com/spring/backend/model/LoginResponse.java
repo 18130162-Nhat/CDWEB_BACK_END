@@ -9,6 +9,14 @@ public class LoginResponse {
         this.name = name ;
     }
 
+    @Override
+    public String toString() {
+        return "LoginResponse{" +
+                "idUser=" + idUser +
+                ", name='" + name + '\'' +
+                '}';
+    }
+
     public int getIdUser() {
         return idUser;
     }

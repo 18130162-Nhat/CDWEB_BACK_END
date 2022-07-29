@@ -17,6 +17,7 @@ public class AuthencationController {
         if(userService.login(email,pass)){
             LoginResponse login = new LoginResponse(userService.getCus().getIdCustomer() ,
                     userService.getCus().getFirstName()+" " +userService.getCus().getLastName());
+            login.toString();
             return ResponseEntity.status(HttpStatus.OK)
                     .body(new ResponseObject("oke" , login)) ;
         }

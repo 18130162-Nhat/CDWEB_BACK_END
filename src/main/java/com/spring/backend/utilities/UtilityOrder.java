@@ -20,7 +20,7 @@ public class UtilityOrder {
         or.setNote(order.getNote());
         or.setStatus("NEW");
         or.setPriceOrder(order.getPriceOrder());
-        Customer cus = customer.findById(order.getIdCus()).get();
+        Customer cus = customer.findById(order.getIdCus());
         or.setCustomer(cus);
         or.setAddress(order.getAddress());
 

@@ -6,6 +6,7 @@ import com.spring.backend.model.FormRegister;
 import com.spring.backend.model.ResponseObject;
 import com.spring.backend.model.ShopProduct;
 import com.spring.backend.service.CustomerService;
+import com.spring.backend.service.OrderService;
 import com.spring.backend.utilities.RenderOTP;
 import com.spring.backend.utilities.SendEmail;
 import com.spring.backend.utilities.UtilityCustomer;
@@ -25,6 +26,8 @@ public class CustomerController {
     RenderOTP renderOTP;
     @Autowired
     SendEmail sendEmail;
+    @Autowired
+    OrderService orderService ;
 
     @RequestMapping(value = "customer/register", method = RequestMethod.POST)
     public ResponseEntity<ResponseObject> register(FormRegister form) {
@@ -119,6 +122,6 @@ public class CustomerController {
     @RequestMapping(value = "/findOrder" , method = RequestMethod.GET)
     public ResponseEntity<ResponseObject> findOrder(@RequestParam("id") int id){
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseObject("oke" , customerService.findAllOrder(id))) ;
+                .body(new ResponseObject("oke" , orderService.findOrderByCustomer(id))) ;
     }
 }

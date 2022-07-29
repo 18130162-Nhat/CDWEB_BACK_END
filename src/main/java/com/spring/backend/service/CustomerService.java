@@ -116,9 +116,5 @@ public class CustomerService {
         return this.cus ;
     }
 
-    public List<Order> findAllOrder(int idUser){
-        Customer cus = customer.findById(idUser) ;
-        return  cus.getOrderList() ;
 
-    }
 }
