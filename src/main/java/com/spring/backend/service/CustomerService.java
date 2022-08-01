@@ -1,22 +1,10 @@
 package com.spring.backend.service;
 
 import com.spring.backend.entity.Customer;
-import com.spring.backend.entity.Order;
-import com.spring.backend.entity.Product;
 import com.spring.backend.model.CustomerProfile;
-import com.spring.backend.model.ShopProduct;
 import com.spring.backend.repositories.RepositoriesCustomer;
-import com.spring.backend.utilities.ProductSpecification;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
-
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class CustomerService {
@@ -89,27 +77,12 @@ public class CustomerService {
             customer.save(cus);
     }
 
-//    public boolean updateProfile1(int idCus, String email, String firstName, String lastName, String phone){
-//        List<Customer> list = new ArrayList<Customer>();
-//        for (Customer c : list) {
-//            if(c.getIdCustomer()==idCus) {
-//                c.setEmail(email);
-//                c.setFirstName(firstName);
-//                c.setLastName(lastName);
-//                c.setPhone(phone);
-//                customer.save(c);
-//                return true;
-//            }
-//        }
-//
-//        return false;
-//    }
-
     public CustomerProfile findCustomerByFilter(int id){
         Customer customer1 = customer.findById(id);
         CustomerProfile profile = new CustomerProfile(customer1.getIdCustomer(),
                 customer1.getEmail(),customer1.getFirstName(),
-                customer1.getLastName(), customer1.getPhone());
+                customer1.getLastName(), customer1.getPhone(), customer1.getLinkAvatar()
+        );
         return  profile;
     }
     public Customer getCus(){

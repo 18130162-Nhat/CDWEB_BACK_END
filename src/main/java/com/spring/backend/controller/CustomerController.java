@@ -1,10 +1,8 @@
 package com.spring.backend.controller;
 
 import com.spring.backend.entity.Customer;
-import com.spring.backend.model.CustomerProfile;
 import com.spring.backend.model.FormRegister;
 import com.spring.backend.model.ResponseObject;
-import com.spring.backend.model.ShopProduct;
 import com.spring.backend.service.CustomerService;
 import com.spring.backend.service.OrderService;
 import com.spring.backend.utilities.RenderOTP;
@@ -15,10 +13,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
 @CrossOrigin(origins = "*", maxAge = 3600)
-@RestController
-public class CustomerController {
-    @Autowired
+    @RestController
+    public class CustomerController {
+        @Autowired
     CustomerService customerService;
     @Autowired
     UtilityCustomer utilityCustomer;
@@ -86,15 +85,12 @@ public class CustomerController {
     public ResponseEntity<ResponseObject> updateProfile(
             @RequestParam("idCus") int idCus,
             @RequestParam("firstName") String firstName, @RequestParam("email") String email,
-            @RequestParam("lastName") String lastName, @RequestParam("phone") String phone) {
-
+            @RequestParam("lastName") String lastName, @RequestParam("phone") String phone
+    ){
         customerService.updateCusProfile(idCus, email, firstName, lastName, phone);
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ResponseObject("oke", ""));
     }
-//        return ResponseEntity.status(HttpStatus.OK)
-//                .body(new ResponseObject("ERROR", ""));
-
 
     @RequestMapping(value = "/findCustomerByfilter", method = RequestMethod.GET)
     public ResponseEntity<ResponseObject> findCustomerByFilter(@RequestParam("idCus") int idCus) {
@@ -107,7 +103,6 @@ public class CustomerController {
             @RequestParam("idCus") int idCus,
             @RequestParam("pass") String pass,
             @RequestParam("newpass") String newpass)
-//            @RequestParam("repeat") String repeat)
             {
         Customer cus = customerService.findCustomer(idCus);
                 System.out.println(cus.getPass().equals(pass));
@@ -124,4 +119,5 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ResponseObject("oke" , orderService.findOrderByCustomer(id))) ;
     }
+
 }

@@ -25,8 +25,8 @@ public class OrderService {
     UtilityDetailOrder detailOrder ;
     @Autowired
     CustomerService service ;
-
     @Transactional
+
     // thuc hien 2 thao tac luu vao db do la : luu order va luu detail order
     // Transactional dung de roll back neu 1 trong 2 thao tac xay ra loi trong qua trinh save
     public void order(OrderCustomer orderCustomer){
