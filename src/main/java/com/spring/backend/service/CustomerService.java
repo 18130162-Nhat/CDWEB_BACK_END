@@ -3,6 +3,7 @@ package com.spring.backend.service;
 import com.spring.backend.entity.Customer;
 import com.spring.backend.model.CustomerProfile;
 import com.spring.backend.repositories.RepositoriesCustomer;
+import com.spring.backend.utilities.HashMD5;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,10 +11,14 @@ import org.springframework.stereotype.Service;
 public class CustomerService {
     @Autowired
     RepositoriesCustomer customer ;
+    @Autowired
+    HashMD5 hashMD5 ;
     private Customer cus ;
 
 
-    public boolean login(String email , String pass ){
+    public boolean login(String email , String text ){
+        hashMD5.setText(text);
+        String pass = hashMD5.md5ToBase64();
         Customer u = customer.findCustomerByEmailAndPassAndStatus(email,pass,"ACTIVE") ;
         if(u==null) return  false ;
         this.cus = u ;
@@ -50,19 +55,23 @@ public class CustomerService {
         if(customer==null) return  false ;
         this.cus = customer ;
         long start = System.currentTimeMillis()/1000;
-        if((start-(customer.getTime()/1000))>30) return  false ;
+        if((start-(customer.getTime()/1000))>60) return  false ;
         else  return  true  ;
     }
     public boolean checkCode(String code){
         if(this.cus.getCode().equals(code)) return true ;
         return  false ;
     }
-    public void updatePassWord(String pass){
+    public void updatePassWord(String text){
+        hashMD5.setText(text);
+        String pass = hashMD5.md5ToBase64();
         this.cus.setPass(pass);
         customer.save(this.cus) ;
     }
 
-    public void updatePassProfile(int idCus, String newpass){
+    public void updatePassProfile(int idCus, String text){
+        hashMD5.setText(text);
+        String newpass = hashMD5.md5ToBase64();
         Customer cus = customer.findById(idCus);
         cus.setPass(newpass);
         customer.save(cus) ;

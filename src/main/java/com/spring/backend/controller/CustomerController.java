@@ -1,10 +1,12 @@
 package com.spring.backend.controller;
 
+import com.spring.backend.entity.Contact;
 import com.spring.backend.entity.Customer;
 import com.spring.backend.model.FormRegister;
 import com.spring.backend.model.ResponseObject;
 import com.spring.backend.service.CustomerService;
 import com.spring.backend.service.OrderService;
+import com.spring.backend.utilities.HashMD5;
 import com.spring.backend.utilities.RenderOTP;
 import com.spring.backend.utilities.SendEmail;
 import com.spring.backend.utilities.UtilityCustomer;
@@ -17,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "*", maxAge = 3600)
     @RestController
     public class CustomerController {
-        @Autowired
+    @Autowired
     CustomerService customerService;
     @Autowired
     UtilityCustomer utilityCustomer;
@@ -27,6 +29,8 @@ import org.springframework.web.bind.annotation.*;
     SendEmail sendEmail;
     @Autowired
     OrderService orderService ;
+    @Autowired
+    HashMD5 hashMD5 ;
 
     @RequestMapping(value = "customer/register", method = RequestMethod.POST)
     public ResponseEntity<ResponseObject> register(FormRegister form) {
@@ -89,7 +93,7 @@ import org.springframework.web.bind.annotation.*;
     ){
         customerService.updateCusProfile(idCus, email, firstName, lastName, phone);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseObject("oke", ""));
+                .body(new ResponseObject("oke", customerService.findCustomer(idCus)));
     }
 
     @RequestMapping(value = "/findCustomerByfilter", method = RequestMethod.GET)
@@ -101,11 +105,12 @@ import org.springframework.web.bind.annotation.*;
     @RequestMapping(value = "customer/changePass", method = RequestMethod.POST)
     public ResponseEntity<ResponseObject> changePass(
             @RequestParam("idCus") int idCus,
-            @RequestParam("pass") String pass,
+            @RequestParam("pass") String text,
             @RequestParam("newpass") String newpass)
             {
         Customer cus = customerService.findCustomer(idCus);
-                System.out.println(cus.getPass().equals(pass));
+        hashMD5.setText(text);
+        String pass = hashMD5.md5ToBase64();
         if (cus.getPass().equals(pass)) {
             customerService.updatePassProfile(idCus, newpass);
             return ResponseEntity.status(HttpStatus.OK)
@@ -119,5 +124,6 @@ import org.springframework.web.bind.annotation.*;
         return ResponseEntity.status(HttpStatus.OK)
                 .body(new ResponseObject("oke" , orderService.findOrderByCustomer(id))) ;
     }
+
 
 }

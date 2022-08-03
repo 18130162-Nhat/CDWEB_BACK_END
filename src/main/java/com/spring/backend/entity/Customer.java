@@ -40,7 +40,19 @@ public class Customer {
     @OneToMany(mappedBy = "customer", fetch = FetchType.EAGER)
     private List<Order> orderList ;
 
-    public Customer( String pass, String phone, String email, String role, String status, String firstName, String lastName, String gender, long time, String code, String linkAvatar, List<Order> orderList) {
+    @JsonIgnore
+    @OneToMany(mappedBy = "cus",fetch = FetchType.LAZY)
+    private List<Contact> listContact ;
+
+    public List<Contact> getListContact() {
+        return listContact;
+    }
+
+    public void setListContact(List<Contact> listContact) {
+        this.listContact = listContact;
+    }
+
+    public Customer(String pass, String phone, String email, String role, String status, String firstName, String lastName, String gender, long time, String code, String linkAvatar, List<Order> orderList, List<Contact> listContact) {
         this.pass = pass;
         this.phone = phone;
         this.email = email;
@@ -53,6 +65,7 @@ public class Customer {
         this.code = code;
         this.linkAvatar = linkAvatar;
         this.orderList = orderList;
+        this.listContact =listContact;
     }
 
 
